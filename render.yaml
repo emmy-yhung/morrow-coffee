@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: morrow-coffee
+    runtime: python
+    buildCommand: python --version
+    startCommand: python server.py
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: PAYSTACK_SECRET_KEY
+        sync: false

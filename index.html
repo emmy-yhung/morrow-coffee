@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Morrow Coffee — beautifully roasted coffee for slow mornings and bright ideas.">
+    <title>Morrow Coffee — Start something good</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="#" aria-label="Morrow Coffee home">
+            <span class="logo-mark" aria-hidden="true">✦</span>
+            <span>MORROW<span class="logo-dot">.</span></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+            <span class="sr-only">Toggle menu</span>
+        </button>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+            <a href="#shop">Shop coffee</a>
+            <a href="#story">Our story</a>
+            <a href="#journal">Journal</a>
+            <a href="#visit">Visit us</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-button" aria-label="Search">⌕</button>
+            <a class="bag-link" href="#shop">Bag <span class="bag-count">0</span></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Small batch · Big feeling</p>
+                <h1>Start something <em>good.</em></h1>
+                <p class="hero-description">Thoughtfully sourced coffee for slow mornings, bright ideas, and everywhere in between.</p>
+                <div class="hero-actions">
+                    <a class="button button-dark" href="#shop">Shop the roast <span>→</span></a>
+                    <a class="text-link" href="#story">Meet Morrow <span>↗</span></a>
+                </div>
+                <div class="hero-note"><span class="note-line"></span><span>Roasted fresh in Brooklyn &amp; shipped worldwide</span></div>
+            </div>
+            <div class="hero-image-wrap">
+                <div class="hero-image"></div>
+                <div class="hero-sticker">Good<br><span>things</span><br>ahead</div>
+                <div class="hero-caption">No. 04 &nbsp; / &nbsp; The daily ritual</div>
+            </div>
+        </section>
+
+        <section class="marquee" aria-label="Morrow values">
+            <div class="marquee-track">
+                <span>Good coffee, made better</span><i>✦</i><span>Good coffee, made better</span><i>✦</i><span>Good coffee, made better</span><i>✦</i>
+            </div>
+        </section>
+
+        <section class="section intro-section" id="story">
+            <div class="section-heading">
+                <p class="eyebrow">The Morrow way</p>
+                <h2>Coffee with a<br><em>little more care.</em></h2>
+            </div>
+            <div class="intro-content">
+                <p>We believe the best part of your day deserves better than ordinary. Morrow is a small, independent coffee company built around beautiful beans, honest relationships, and the rituals that make life feel good.</p>
+                <a class="text-link" href="#journal">Read our story <span>↗</span></a>
+            </div>
+        </section>
+
+        <section class="section shop-section" id="shop">
+            <div class="section-topline">
+                <div>
+                    <p class="eyebrow">The current lineup</p>
+                    <h2>Find your <em>daily.</em></h2>
+                </div>
+                <a class="text-link desktop-link" href="#shop">View all coffee <span>↗</span></a>
+            </div>
+            <div class="product-grid">
+                <article class="product-card">
+                    <a class="product-image product-one" href="#shop" aria-label="Shop House Blend"></a>
+                    <div class="product-meta"><span>01 / Everyday</span><span>₦18,000</span></div>
+                    <h3>House Blend</h3>
+                    <p>Chocolate · Toffee · Orange</p>
+                    <button class="add-to-bag" type="button" data-product="House Blend" data-price="18000">Add to bag</button>
+                </article>
+                <article class="product-card featured-product">
+                    <a class="product-image product-two" href="#shop" aria-label="Shop Sunroom roast"></a>
+                    <div class="product-meta"><span>02 / Bright</span><span>₦21,000</span></div>
+                    <h3>Sunroom</h3>
+                    <p>Apricot · Honey · Jasmine</p>
+                    <span class="product-badge">Staff pick</span>
+                    <button class="add-to-bag" type="button" data-product="Sunroom" data-price="21000">Add to bag</button>
+                </article>
+                <article class="product-card">
+                    <a class="product-image product-three" href="#shop" aria-label="Shop Afterglow roast"></a>
+                    <div class="product-meta"><span>03 / Deep</span><span>₦20,000</span></div>
+                    <h3>Afterglow</h3>
+                    <p>Plum · Cacao · Brown sugar</p>
+                    <button class="add-to-bag" type="button" data-product="Afterglow" data-price="20000">Add to bag</button>
+                </article>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-image"></div>
+            <div class="feature-copy">
+                <p class="eyebrow">Good from the ground up</p>
+                <h2>Traceable coffee.<br><em>Real relationships.</em></h2>
+                <p>From the farmers we partner with to the last drop in your cup, we keep things considered. Every Morrow coffee is sourced with respect, roasted with intention, and made to be shared.</p>
+                <a class="button button-light" href="#story">How we source <span>↗</span></a>
+            </div>
+        </section>
+
+        <section class="section journal-section" id="journal">
+            <div class="section-topline">
+                <div>
+                    <p class="eyebrow">From the journal</p>
+                    <h2>A little <em>inspiration.</em></h2>
+                </div>
+                <a class="text-link desktop-link" href="#journal">All stories <span>↗</span></a>
+            </div>
+            <div class="journal-grid">
+                <article class="journal-card">
+                    <a class="journal-image journal-one" href="#journal"></a>
+                    <p class="eyebrow">Rituals · 4 min read</p>
+                    <h3>How to make your morning cup feel like a fresh start</h3>
+                    <a class="text-link" href="#journal">Read more <span>↗</span></a>
+                </article>
+                <article class="journal-card">
+                    <a class="journal-image journal-two" href="#journal"></a>
+                    <p class="eyebrow">People · 6 min read</p>
+                    <h3>Meet the growers behind our summer release</h3>
+                    <a class="text-link" href="#journal">Read more <span>↗</span></a>
+                </article>
+            </div>
+        </section>
+
+        <section class="newsletter" id="visit">
+            <div>
+                <p class="eyebrow">Keep in touch</p>
+                <h2>Good things,<br><em>in your inbox.</em></h2>
+            </div>
+            <form class="newsletter-form">
+                <label class="sr-only" for="email">Your email address</label>
+                <input id="email" type="email" placeholder="Your email address" required>
+                <button type="submit" aria-label="Subscribe">↗</button>
+                <p class="form-message" role="status"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-brand"><a class="logo" href="#"><span class="logo-mark">✦</span><span>MORROW<span class="logo-dot">.</span></span></a><p>For slow mornings<br>and bright ideas.</p></div>
+        <div class="footer-links"><div><p class="footer-label">Explore</p><a href="#shop">Shop coffee</a><a href="#story">Our story</a><a href="#journal">Journal</a></div><div><p class="footer-label">Say hello</p><a href="mailto:hello@morrow.coffee">hello@morrow.coffee</a><a href="#visit">Instagram ↗</a><a href="#visit">Brooklyn, NY</a></div></div>
+        <div class="footer-bottom"><span>© 2024 Morrow Coffee Co.</span><span>Made for the moment.</span></div>
+    </footer>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
