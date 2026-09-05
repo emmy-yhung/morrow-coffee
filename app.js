@@ -60,7 +60,7 @@
     drawer.innerHTML = `
         <div class="cart-drawer-header"><h2>Your bag</h2><button type="button" class="cart-close" aria-label="Close shopping bag">×</button></div>
         <div class="cart-items"></div>
-        <div class="cart-footer"><div><span>Subtotal</span><strong class="cart-total">$0.00</strong></div><label class="checkout-email-label" for="checkout-email">Email for your receipt</label><input class="checkout-email" id="checkout-email" type="email" placeholder="you@example.com" autocomplete="email" required><button class="checkout-button" type="button">Continue to checkout <span>→</span></button><p class="checkout-message" role="status"></p><p class="checkout-note">Pay securely with card, bank transfer, or USSD.</p></div>
+        <div class="cart-footer"><div><span>Subtotal</span><strong class="cart-total">₦0</strong></div><div class="checkout-fields"><label for="checkout-name">Full name</label><input class="checkout-input" id="checkout-name" type="text" autocomplete="name" required><label for="checkout-email">Email</label><input class="checkout-input" id="checkout-email" type="email" placeholder="you@example.com" autocomplete="email" required><label for="checkout-phone">Phone number</label><input class="checkout-input" id="checkout-phone" type="tel" autocomplete="tel" required><label for="checkout-address">Delivery address</label><textarea class="checkout-input" id="checkout-address" rows="2" autocomplete="street-address" required></textarea><label for="checkout-city">City</label><input class="checkout-input" id="checkout-city" type="text" autocomplete="address-level2" required><label for="checkout-state">State</label><input class="checkout-input" id="checkout-state" type="text" autocomplete="address-level1" required><label for="checkout-notes">Delivery notes <span>(optional)</span></label><textarea class="checkout-input" id="checkout-notes" rows="2" placeholder="Gate code, preferred time, or other details"></textarea></div><button class="checkout-button" type="button">Continue to checkout <span>→</span></button><p class="checkout-message" role="status"></p><p class="checkout-note">Pay securely with card, bank transfer, or USSD.</p></div>
     `;
     document.body.append(drawer);
 
@@ -147,9 +147,11 @@
             message.textContent = "Add an item before checking out.";
             return;
         }
-        if (!emailInput.checkValidity()) {
-            message.textContent = "Enter a valid email address to continue.";
-            emailInput.focus();
+        const checkoutFields = [...drawer.querySelectorAll(".checkout-input")];
+        const invalidField = checkoutFields.find((field) => !field.checkValidity());
+        if (invalidField) {
+            message.textContent = "Complete the required delivery details to continue.";
+            invalidField.focus();
             return;
         }
         if (!window.PaystackPop || PAYSTACK_PUBLIC_KEY.includes("replace_with")) {
@@ -158,6 +160,7 @@
         }
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         const reference = `morrow-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const customer = Object.fromEntries(checkoutFields.map((field) => [field.id.replace("checkout-", ""), field.value.trim()]));
         const handler = window.PaystackPop.setup({
             key: PAYSTACK_PUBLIC_KEY,
             email: emailInput.value.trim(),
@@ -165,7 +168,12 @@
             currency: "NGN",
             ref: reference,
             metadata: {
-                custom_fields: cart.map((item) => ({
+                custom_fields: [
+                    { display_name: "Customer name", variable_name: "customer_name", value: customer.name },
+                    { display_name: "Phone", variable_name: "phone", value: customer.phone },
+                    { display_name: "Delivery address", variable_name: "delivery_address", value: `${customer.address}, ${customer.city}, ${customer.state}` }
+                ],
+                items: cart.map((item) => ({
                     display_name: item.name,
                     variable_name: item.name.toLowerCase().replace(/\s+/g, "_"),
                     value: String(item.quantity)
@@ -187,7 +195,8 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         reference: response.reference,
-                        items: cart.map(({ name, quantity }) => ({ name, quantity }))
+                        items: cart.map(({ name, quantity }) => ({ name, quantity })),
+                        customer
                     })
                 });
                 const result = await verification.json();
