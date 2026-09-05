@@ -10,6 +10,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).parent
+ROOT_DIRECTORY = ROOT.resolve()
 HOST = os.environ.get("HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", "8000"))
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY", "")
@@ -33,8 +34,8 @@ class WebsiteHandler(BaseHTTPRequestHandler):
         if self.path == "/api/health":
             send_json(self, 200, {"ok": True})
             return
-        path = (ROOT / (self.path.split("?", 1)[0].lstrip("/") or "index.html")).resolve()
-        if ROOT not in path.parents:
+        path = (ROOT_DIRECTORY / (self.path.split("?", 1)[0].lstrip("/") or "index.html")).resolve()
+        if ROOT_DIRECTORY not in path.parents:
             send_json(self, 403, {"error": "Forbidden"})
             return
         if not path.is_file() or path.suffix not in {".html", ".css", ".js"}:
