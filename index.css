@@ -117,17 +117,16 @@ h2 { font-size: clamp(45px, 5.1vw, 75px); }
 .cart-item-controls button { background: none; border: 0; cursor: pointer; font-size: 17px; }
 .cart-item-controls button:last-child { font-size: 10px; margin-left: 5px; text-decoration: underline; }
 .cart-footer { border-top: 1px solid var(--line); padding-top: 20px; }
-.cart-footer > div { display: flex; font-size: 13px; justify-content: space-between; margin-bottom: 20px; }
+.cart-summary { display: flex; font-size: 13px; justify-content: space-between; margin-bottom: 20px; }
 .cart-total { font-size: 18px; }
 .checkout-button { background: var(--ink); border: 0; color: var(--cream); cursor: pointer; display: flex; font-size: 11px; font-weight: 700; justify-content: space-between; padding: 17px; text-transform: uppercase; width: 100%; }
 .checkout-button:hover { background: var(--orange); }
 .checkout-email-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .08em; margin-bottom: 7px; text-transform: uppercase; }
 .checkout-email { background: transparent; border: 1px solid var(--line); font-size: 13px; margin-bottom: 14px; outline-color: var(--orange); padding: 12px; width: 100%; }
-.checkout-fields { display: grid; gap: 6px; grid-template-columns: 1fr 1fr; margin-bottom: 14px; }
+.checkout-fields { display: grid; gap: 6px; grid-template-columns: 1fr; margin-bottom: 14px; }
 .checkout-fields label { font-size: 10px; font-weight: 700; letter-spacing: .06em; margin-top: 5px; text-transform: uppercase; }
 .checkout-fields label span { font-weight: 400; letter-spacing: 0; opacity: .6; text-transform: none; }
 .checkout-input { background: transparent; border: 1px solid var(--line); font-size: 13px; outline-color: var(--orange); padding: 9px; width: 100%; }
-.checkout-fields .checkout-input, .checkout-fields label:nth-of-type(3), .checkout-fields label:nth-of-type(4), .checkout-fields label:nth-of-type(5), .checkout-fields label:nth-of-type(6), .checkout-fields label:nth-of-type(7), .checkout-fields label:nth-of-type(8) { grid-column: 1 / -1; }
 .checkout-input:invalid:not(:placeholder-shown) { border-color: var(--orange); }
 .checkout-message { color: var(--orange); font-size: 11px; min-height: 17px; padding-top: 9px; }
 .checkout-note { font-size: 10px; margin-top: 12px; opacity: .6; text-align: center; }
