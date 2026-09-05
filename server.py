@@ -1,4 +1,4 @@
-"""Morrow Coffee web server and Paystack transaction verifier."""
+"""ChopNow web server and Paystack transaction verifier."""
 
 import json
 import os
