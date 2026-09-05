@@ -1,7 +1,7 @@
 (() => {
     "use strict";
 
-    const CART_KEY = "morrow-cart";
+    const CART_KEY = "chopnow-cart";
     // Replace this with your Paystack public key. Never expose a secret key here.
     const PAYSTACK_PUBLIC_KEY = "pk_test_95f80b03832e403106f058abf0d003077330039b";
     const menuButton = document.querySelector(".menu-toggle");
@@ -159,7 +159,7 @@
             return;
         }
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        const reference = `morrow-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const reference = `chopnow-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
         const customer = Object.fromEntries(checkoutFields.map((field) => [field.id.replace("checkout-", ""), field.value.trim()]));
         const handler = window.PaystackPop.setup({
             key: PAYSTACK_PUBLIC_KEY,

@@ -13,8 +13,8 @@ ROOT = Path(__file__).parent
 HOST = os.environ.get("HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", "8000"))
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY", "")
-REFERENCE_PATTERN = re.compile(r"^morrow-[a-z0-9-]{10,80}$")
-CATALOG = {"House Blend": 18000, "Sunroom": 21000, "Afterglow": 20000}
+REFERENCE_PATTERN = re.compile(r"^chopnow-[a-z0-9-]{10,80}$")
+CATALOG = {"Party Jollof & Chicken": 5500, "Egusi & Pounded Yam": 6500, "Suya Sharing Box": 7000}
 recent_requests = {}
 
 
