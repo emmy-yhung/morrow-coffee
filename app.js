@@ -171,33 +171,37 @@
                     value: String(item.quantity)
                 }))
             },
-            callback: async (response) => {
-                message.textContent = "Confirming your payment securely...";
-                try {
-                    const verification = await fetch("/api/verify-payment", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            reference: response.reference,
-                            items: cart.map(({ name, quantity }) => ({ name, quantity }))
-                        })
-                    });
-                    const result = await verification.json();
-                    if (!verification.ok || result.verified !== true) {
-                        throw new Error(result.error || "Payment verification failed");
-                    }
-                    message.textContent = `Payment confirmed. Reference: ${result.reference}`;
-                    cart = [];
-                    saveCart();
-                    renderCart();
-                } catch (error) {
-                    message.textContent = `${error.message} Contact us with your payment reference.`;
-                }
+            callback: function (response) {
+                verifyPayment(response, message);
             },
-            onClose: () => {
+            onClose: function () {
                 message.textContent = "Payment window closed. Your bag is still saved.";
             }
         });
+
+        async function verifyPayment(response, message) {
+            message.textContent = "Confirming your payment securely...";
+            try {
+                const verification = await fetch("/api/verify-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        reference: response.reference,
+                        items: cart.map(({ name, quantity }) => ({ name, quantity }))
+                    })
+                });
+                const result = await verification.json();
+                if (!verification.ok || result.verified !== true) {
+                    throw new Error(result.error || "Payment verification failed");
+                }
+                message.textContent = `Payment confirmed. Reference: ${result.reference}`;
+                cart = [];
+                saveCart();
+                renderCart();
+            } catch (error) {
+                message.textContent = `${error.message} Contact us with your payment reference.`;
+            }
+        }
         handler.openIframe();
     });
 
