@@ -34,10 +34,10 @@ class WebsiteHandler(BaseHTTPRequestHandler):
             send_json(self, 200, {"ok": True})
             return
         path = (ROOT / (self.path.split("?", 1)[0].lstrip("/") or "index.html")).resolve()
-        if ROOT not in path.parents or path.suffix not in {".html", ".css", ".js"}:
+        if ROOT not in path.parents:
             send_json(self, 403, {"error": "Forbidden"})
             return
-        if not path.is_file():
+        if not path.is_file() or path.suffix not in {".html", ".css", ".js"}:
             send_json(self, 404, {"error": "Not found"})
             return
         content_type = {".html": "text/html", ".css": "text/css", ".js": "text/javascript"}[path.suffix]
