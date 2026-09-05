@@ -2,6 +2,7 @@
     "use strict";
 
     const CART_KEY = "chopnow-cart";
+    const ORDER_KEY = "chopnow-last-order";
     // Replace this with your Paystack public key. Never expose a secret key here.
     const PAYSTACK_PUBLIC_KEY = "pk_test_95f80b03832e403106f058abf0d003077330039b";
     const menuButton = document.querySelector(".menu-toggle");
@@ -67,6 +68,46 @@
     const overlay = document.createElement("div");
     overlay.className = "cart-overlay";
     document.body.append(overlay);
+
+    const confirmation = document.createElement("section");
+    confirmation.className = "order-confirmation";
+    confirmation.setAttribute("aria-hidden", "true");
+    confirmation.innerHTML = `
+        <div class="confirmation-card">
+            <button class="confirmation-close" type="button" aria-label="Close order confirmation">×</button>
+            <div class="confirmation-icon">✓</div>
+            <p class="eyebrow">Order received</p>
+            <h2>We're on it.</h2>
+            <p class="confirmation-intro">Your food is in the queue. Keep this reference for your records.</p>
+            <div class="confirmation-reference"></div>
+            <div class="order-summary"></div>
+            <div class="order-status">
+                <div class="status-step active"><b>01</b><span><strong>Order received</strong>Payment confirmed</span></div>
+                <div class="status-step"><b>02</b><span><strong>Preparing your food</strong>We'll get cooking shortly</span></div>
+                <div class="status-step"><b>03</b><span><strong>Out for delivery</strong>We'll call when we're close</span></div>
+            </div>
+            <button class="button button-dark confirmation-done" type="button">Back to menu <span>↓</span></button>
+        </div>
+    `;
+    document.body.append(confirmation);
+
+    const closeConfirmation = () => {
+        confirmation.classList.remove("is-visible");
+        confirmation.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("confirmation-is-open");
+    };
+
+    const showOrderConfirmation = (order) => {
+        confirmation.querySelector(".confirmation-reference").textContent = `Reference: ${order.reference}`;
+        confirmation.querySelector(".order-summary").textContent = `${order.customer.name} · ${money(order.amount)} · ${order.customer.city}, ${order.customer.state}`;
+        confirmation.classList.add("is-visible");
+        confirmation.setAttribute("aria-hidden", "false");
+        document.body.classList.add("confirmation-is-open");
+        confirmation.querySelector(".confirmation-close").focus();
+    };
+
+    confirmation.querySelector(".confirmation-close").addEventListener("click", closeConfirmation);
+    confirmation.querySelector(".confirmation-done").addEventListener("click", closeConfirmation);
 
     const closeCart = () => {
         if (drawer.contains(document.activeElement)) document.activeElement.blur();
@@ -203,10 +244,14 @@
                 if (!verification.ok || result.verified !== true) {
                     throw new Error(result.error || "Payment verification failed");
                 }
+                const order = { reference: result.reference, amount: result.amount, customer };
+                localStorage.setItem(ORDER_KEY, JSON.stringify(order));
                 message.textContent = `Payment confirmed. Reference: ${result.reference}`;
                 cart = [];
                 saveCart();
                 renderCart();
+                closeCart();
+                showOrderConfirmation(order);
             } catch (error) {
                 message.textContent = `${error.message} Contact us with your payment reference.`;
             }
