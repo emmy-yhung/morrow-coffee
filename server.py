@@ -98,7 +98,7 @@ class WebsiteHandler(BaseHTTPRequestHandler):
             result.get("status") is True
             and transaction.get("status") == "success"
             and transaction.get("currency") == "NGN"
-            and transaction.get("amount") == expected_amount
+            and transaction.get("amount") == expected_amount * 100
         )
         if not verified:
             send_json(self, 402, {"verified": False, "error": "Payment could not be verified"})
